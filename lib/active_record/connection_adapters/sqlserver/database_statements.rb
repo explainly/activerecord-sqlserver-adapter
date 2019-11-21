@@ -373,13 +373,11 @@ module ActiveRecord
         end
 
         def _raw_select(sql, options = {})
-          with_sqlserver_error_handling do 
-            begin
-	            handle = raw_connection_run(sql)
-              handle_to_names_and_values(handle, options)
-            ensure
-              finish_statement_handle(handle)
-            end
+          begin
+            handle = raw_connection_run(sql)
+            handle_to_names_and_values(handle, options)
+          ensure
+            finish_statement_handle(handle)
           end
         end
 
